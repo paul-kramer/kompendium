@@ -219,6 +219,55 @@ table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
 .bl.x { color: var(--accent); background: var(--accent-soft); text-transform: none; }
 .wt { color: var(--muted); font-size: .85rem; }
 .fnotes { margin: 4px 0 0; padding-left: 1.15em; color: var(--muted); font-size: .88rem; display: grid; gap: 3px; }
+
+/* Modus-Umschalter */
+.mode { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 0; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+.mode button { font: 700 .95rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .06em; border: 0; border-radius: 999px; padding: 10px 8px; background: transparent; color: var(--muted); cursor: pointer; min-height: 40px; }
+.mode button[aria-pressed="true"] { background: var(--bar); color: var(--bar-ink); }
+.mode.sub { border-radius: 10px; grid-auto-flow: row; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+.mode.sub button { border-radius: 8px; font-size: .85rem; }
+/* Lernversion */
+.toc { display: grid; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 8px 10px; }
+.toc a { color: var(--ink); text-decoration: none; padding: 5px 2px; border-bottom: 1px dashed var(--line); font-size: .95rem; }
+.toc a:last-child { border-bottom: 0; }
+.toc a b { display: inline-grid; place-items: center; width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--bg); font: 700 .78rem/1 var(--f-num); margin-right: 6px; }
+.tsec { position: relative; scroll-margin-top: 80px; display: grid; }
+.tnum { position: absolute; right: 10px; top: 10px; font: 700 .75rem/1 var(--f-num); color: var(--muted); }
+/* Einsatzversion */
+.scsrc { font: .78rem/1 var(--f-num); color: var(--muted); }
+.sctrail { list-style: none; margin: 0; padding: 0 0 0 14px; border-left: 3px solid var(--line); display: grid; gap: 4px; font-size: .88rem; color: var(--muted); }
+.sctrail li { display: flex; gap: 6px; align-items: baseline; flex-wrap: wrap; }
+.sctrail .st { font-weight: 700; color: var(--ink); }
+.sctrail .dn.med { color: var(--accent); }
+.sctrail .ok { color: var(--ok); font-weight: 700; }
+.sctrail .qt { flex: 1 1 60%; }
+.sccur { background: var(--surface); border: 2px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 12px; box-shadow: 0 6px 18px rgb(0 0 0 / .08); }
+.sccur.q { border-color: var(--warn); background: var(--warn-bg); }
+.sccur.med { border-color: var(--accent); background: var(--accent-soft); }
+.sccur.opt { border-style: dashed; border-color: var(--ink); }
+.sccur.info { border-style: dotted; }
+.sccur.fin { border-color: var(--bar); }
+.sclab { font: 700 .78rem/1 var(--f-display); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.sctx { font-size: 1.3rem; line-height: 1.35; font-weight: 700; overflow-wrap: anywhere; }
+.scbtns { display: grid; gap: 8px; }
+.scbtns.two { grid-template-columns: 1fr 1fr; }
+.scb { font: 700 1.1rem/1.2 var(--f-body); border: 0; border-radius: 12px; padding: 16px 12px; min-height: 60px; cursor: pointer; background: var(--bar); color: var(--bar-ink); overflow-wrap: anywhere; }
+.scb.ja { background: var(--ok); color: var(--surface); text-transform: uppercase; letter-spacing: .05em; font-size: 1.3rem; }
+.scb.nein { background: var(--block); color: var(--surface); text-transform: uppercase; letter-spacing: .05em; font-size: 1.3rem; }
+.scb.x { background: var(--surface); color: var(--ink); border: 2px solid var(--accent); text-align: left; }
+.scb.go { background: var(--bar); color: var(--bar-ink); }
+.scbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sb { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 12px 8px; font: 600 .95rem/1 var(--f-body); cursor: pointer; min-height: 44px; }
+.sb:disabled { opacity: .45; cursor: default; }
+.scnotes summary { cursor: pointer; font: 700 .9rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; }
+.scnotes ul { margin: 6px 0 0; color: var(--muted); font-size: .9rem; }
+.chip.mc { background: var(--accent-soft); border-color: var(--accent); }
+.ck { display: grid; gap: 6px; }
+.ckb { display: flex; gap: 10px; align-items: flex-start; text-align: left; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 10px; font: 1rem/1.35 var(--f-body); cursor: pointer; }
+.ckb .box { flex: none; width: 24px; height: 24px; border: 2px solid var(--muted); border-radius: 6px; display: grid; place-items: center; font-weight: 700; color: var(--surface); }
+.ckb.on { background: var(--ok-bg); }
+.ckb.on .box { background: var(--ok); border-color: var(--ok); }
+.ckb.on > span:last-child { color: var(--muted); text-decoration: line-through; }
 </style>
 </head>
 <body>
@@ -1714,25 +1763,128 @@ const MSTART_EXCL = [
     if (!items || !items.length) return "";
     return '<section class="card"><h3>' + esc(title) + "</h3><ul>" + items.map(i => nfItem(i, selfId)).join("") + "</ul></section>";
   }
-  function renderNf(n) {
-    let html = '<article class="detail"><div class="dh"><h2>' + esc(n.title) + '</h2><div class="meta">' + esc(n.cat) + '</div><div class="src">' + esc(n.src.replace("KP", "Kompendium").replace("BH", "Begleitheft")) + "</div></div>";
-    html += exclFlags(n.id);
-    (n.flags || []).forEach(f => html += '<div class="flag"><b>Achtung Quelle:</b> ' + esc(f) + "</div>");
-    const fc = flowCard(n);
-    if (n.note && !fc) html += '<div class="hint">' + esc(n.note) + "</div>";
-    html += fc;
-    if (fc) html += '<h2 class="sec">Details</h2>';
-    html += n.sections.map(s => nfCard(s.h, s.items, n.id)).join("");
-    html += kompCard(KOMP.filter(d => d.nf.includes(n.id)));
-    if (n.meds && n.meds.length) html += '<section class="card"><h3>Medikamente</h3><div class="chips">' + n.meds.map(id => '<button class="chip" data-go="m-' + id + '">' + esc(medById[id].name) + "</button>").join("") + "</div></section>";
-    html += DISCLAIMER + "</article>";
-    view.innerHTML = html; bindRows(); scrollTop();
+  // ── Modus: Lernen / Einsatz ──
+  let nfMode = "learn";
+  try { nfMode = localStorage.getItem("rdnfmode") === "scene" ? "scene" : "learn"; } catch (e) {}
+  function setMode(m) { nfMode = m; try { localStorage.setItem("rdnfmode", m); } catch (e) {} render(); }
+  function modeSwitch() {
+    return '<div class="mode" role="group" aria-label="Ansicht"><button data-mode="learn" aria-pressed="' + (nfMode === "learn") + '">Lernen</button><button data-mode="scene" aria-pressed="' + (nfMode === "scene") + '">Einsatz</button></div>';
   }
+  function bindMode() { view.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode))); }
+  const MED_KEYS = MEDS.map(m => [m.id, [m.name.split(/[ (]/)[0]].concat({ gtn: ["Nitro", "Glyceroltrinitrat"], epinephrin: ["Adrenalin", "Epinephrin"], ass: ["ASS", "Acetylsalicyl"], vel: ["VEL", "Vollelektrolyt"], sauerstoff: ["O2", "Sauerstoff"], txa: ["Tranexam"], ipratropium: ["Ipratropium"], diazepam: ["Diazepam"], esketamin: ["Esketamin"] }[m.id] || [])]);
+  function medChips(text) {
+    const ids = [];
+    MED_KEYS.forEach(([id, keys]) => { if (keys.some(k => new RegExp("(^|[^A-Za-zÄÖÜäöüß])" + k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + (k.length <= 4 ? "([^A-Za-zäöü]|$)" : ""), k.length <= 4 ? "" : "i").test(text)) && !ids.includes(id)) ids.push(id); });
+    if (ids.includes("esketamin") && ids.includes("ketamin") && !/(^|[^s])ketamin/i.test(text.replace(/esketamin/gi, ""))) ids.splice(ids.indexOf("ketamin"), 1);
+    return ids.map(id => '<button class="chip mc" data-go="m-' + id + '">' + esc(medById[id].name) + " ›</button>").join("");
+  }
+
+  // Lernversion: geordnet mit Inhaltsverzeichnis
+  function renderNfLearn(n, head) {
+    const fc = flowCard(n);
+    const secs = [];
+    if (fc) secs.push(["Ablauf", fc]);
+    n.sections.forEach(s => { const c = nfCard(s.h, s.items, n.id); if (c) secs.push([s.h, c]); });
+    const kc = kompCard(KOMP.filter(d => d.nf.includes(n.id)));
+    if (kc) secs.push(["Kompetenz", kc]);
+    if (n.meds && n.meds.length) secs.push(["Medikamente", '<section class="card"><h3>Medikamente</h3><div class="chips">' + n.meds.map(id => '<button class="chip" data-go="m-' + id + '">' + esc(medById[id].name) + "</button>").join("") + "</div></section>"]);
+    let html = head;
+    if (n.note && !fc) html += '<div class="hint">' + esc(n.note) + "</div>";
+    if (secs.length > 2) html += '<nav class="toc" aria-label="Inhalt">' + secs.map((s, i) => '<a href="#" data-toc="t' + i + '"><b>' + (i + 1) + "</b> " + esc(s[0]) + "</a>").join("") + "</nav>";
+    html += secs.map((s, i) => '<div class="tsec" id="t' + i + '">' + s[1] + "</div>").join("");
+    return html;
+  }
+
+  // Einsatzversion: Flussdiagramm Schritt für Schritt
+  function sceneKey(n) { return "rdscene-" + n.id; }
+  function sceneLoad(n) { try { const s = JSON.parse(sessionStorage.getItem(sceneKey(n)) || "null"); if (s && Array.isArray(s.a)) return s; } catch (e) {} return { f: 0, a: [] }; }
+  function sceneSave(n, s) { try { sessionStorage.setItem(sceneKey(n), JSON.stringify(s)); } catch (e) {} }
+  function sceneFlows(n) { const out = []; ((typeof FLOWS !== "undefined" && FLOWS[n.id]) || []).forEach(p => p.flows.forEach(f => out.push({ page: p.page, title: p.title, f, notes: p.notes }))); return out; }
+  // Ablauf nachspielen: Stapel aus [Liste, Index]; Aktionen: "n" = weiter, Zahl = Zweig
+  function sceneWalk(flow, actions) {
+    const stack = [[flow.steps || [], 0]], trail = [];
+    let pos = 0;
+    function cur() {
+      while (stack.length) { const top = stack[stack.length - 1]; if (top[1] < top[0].length) return top[0][top[1]]; stack.pop(); if (stack.length) stack[stack.length - 1][1]++; }
+      return null;
+    }
+    for (; pos < actions.length; pos++) {
+      const nd = cur(); if (!nd || nd.end != null || nd.go != null) break;
+      const a = actions[pos];
+      if (nd.q != null) {
+        const b = (nd.b || [])[a]; if (!b) break;
+        trail.push({ t: nd.q, l: b.l || "➜", c: brClass(b.l || "") });
+        if (b.n && b.n.length) stack.push([b.n, 0]); else stack[stack.length - 1][1]++;
+      } else { trail.push({ t: nd.s, done: 1, k: nd.k }); stack[stack.length - 1][1]++; }
+    }
+    return { node: cur(), trail, used: pos };
+  }
+  function branchText(b) {
+    if (b.l && b.l.trim()) return b.l;
+    const f = b.n && b.n[0]; if (!f) return "weiter";
+    return (f.s || f.q || f.end || f.go || "weiter");
+  }
+  function renderNfScene(n, head) {
+    const flows = sceneFlows(n);
+    let html = head;
+    if (!flows.length) {
+      html += '<div class="hint">Für dieses Notfallbild gibt es im Kompendium kein Flussdiagramm. Hier die Punkte zum Abhaken.</div>';
+      const st = sceneLoad(n);
+      n.sections.forEach((s, si) => {
+        if (!s.items || !s.items.length) return;
+        html += '<section class="card"><h3>' + esc(s.h) + '</h3><div class="ck">' + s.items.map((it, ii) => { const k = si + "." + ii, on = st.a.includes(k); return '<button class="ckb' + (on ? " on" : "") + '" data-ck="' + k + '" aria-pressed="' + on + '"><span class="box" aria-hidden="true">' + (on ? "✓" : "") + "</span><span>" + esc(it) + "</span></button>"; }).join("") + "</div></section>";
+      });
+      html += '<div class="scbar"><button class="sb" data-sc="reset">Häkchen löschen</button></div>';
+      return html;
+    }
+    const st = sceneLoad(n); if (st.f >= flows.length) st.f = 0;
+    const F = flows[st.f];
+    const w = sceneWalk(F.f, st.a);
+    if (w.used < st.a.length) { st.a = st.a.slice(0, w.used); sceneSave(n, st); }
+    html += '<div class="scsrc">Kompendium S. ' + F.page + (flows.length > 1 ? "" : "") + "</div>";
+    if (flows.length > 1) html += '<div class="mode sub" role="group" aria-label="Ablauf">' + flows.map((x, i) => '<button data-scf="' + i + '" aria-pressed="' + (i === st.f) + '">' + esc(x.f.h || x.title) + "</button>").join("") + "</div>";
+    html += '<ol class="sctrail">' + (F.f.start ? '<li class="st">' + esc(F.f.start) + "</li>" : "") + w.trail.map(x => x.done ? '<li class="dn' + (x.k ? " " + x.k : "") + '"><span class="ok">✓</span>' + esc(x.t) + "</li>" : '<li class="an"><span class="qt">' + esc(x.t) + '</span><span class="bl ' + x.c + '">' + esc(x.l) + "</span></li>").join("") + "</ol>";
+    const nd = w.node;
+    if (!nd) {
+      html += '<section class="sccur fin"><div class="sclab">Ablauf zu Ende</div><div class="sctx">Das Diagramm endet hier ohne eigenen Endpunkt.</div></section>';
+    } else if (nd.q != null) {
+      html += '<section class="sccur q"><div class="sclab">Entscheidung</div><div class="sctx">' + esc(nd.q || "Wie geht es weiter?") + "</div>" + '<div class="scbtns' + ((nd.b || []).length === 2 ? " two" : "") + '">' + (nd.b || []).map((b, i) => '<button class="scb ' + brClass(b.l || "") + '" data-sca="' + i + '">' + esc(branchText(b)) + "</button>").join("") + "</div></section>";
+    } else if (nd.end != null || nd.go != null) {
+      const tx = nd.end != null ? nd.end : nd.go;
+      html += '<section class="sccur fin"><div class="sclab">' + (nd.end != null ? "Endpunkt" : "Weiter mit") + '</div><div class="sctx">' + esc(tx) + "</div>" + flowLinks(tx, n.id) + '<div class="chips">' + medChips(tx) + "</div></section>";
+    } else {
+      html += '<section class="sccur ' + (nd.k || "s") + '"><div class="sclab">' + (nd.k === "med" ? "Medikament" : nd.k === "opt" ? "Optional" : nd.k === "info" ? "Hinweis" : "Maßnahme") + '</div><div class="sctx">' + esc(nd.s) + "</div>" + flowLinks(nd.s, n.id) + '<div class="chips">' + medChips(nd.s) + '</div><button class="scb go" data-sca="n">' + (nd.k === "info" ? "Gelesen, weiter" : nd.k === "opt" ? "Weiter" : "Erledigt, weiter") + " ▸</button></section>";
+    }
+    html += '<div class="scbar"><button class="sb" data-sc="back"' + (st.a.length ? "" : " disabled") + '>◂ Schritt zurück</button><button class="sb" data-sc="reset"' + (st.a.length ? "" : " disabled") + ">↺ Neu starten</button></div>";
+    if (F.notes && F.notes.length) html += '<details class="card scnotes"><summary>Hinweise zur Seite</summary><ul>' + F.notes.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul></details>";
+    html += kompCard(KOMP.filter(d => d.nf.includes(n.id)));
+    return html;
+  }
+  function bindScene(n) {
+    const st = sceneLoad(n);
+    const upd = () => { sceneSave(n, st); renderNf(n, true); };
+    view.querySelectorAll("[data-sca]").forEach(b => b.addEventListener("click", () => { const v = b.dataset.sca; st.a.push(v === "n" ? "n" : +v); upd(); }));
+    view.querySelectorAll("[data-scf]").forEach(b => b.addEventListener("click", () => { st.f = +b.dataset.scf; st.a = []; upd(); }));
+    view.querySelectorAll("[data-sc]").forEach(b => b.addEventListener("click", () => { if (b.dataset.sc === "back") st.a.pop(); else st.a = []; upd(); }));
+    view.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.ck, i = st.a.indexOf(k); i < 0 ? st.a.push(k) : st.a.splice(i, 1); upd(); }));
+    view.querySelectorAll("[data-toc]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); const el = document.getElementById(a.dataset.toc); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }));
+  }
+  function renderNf(n, keepScroll) {
+    let head = '<article class="detail' + (nfMode === "scene" ? " scene" : "") + '"><div class="dh"><h2>' + esc(n.title) + '</h2><div class="meta">' + esc(n.cat) + '</div><div class="src">' + esc(n.src.replace("KP", "Kompendium").replace("BH", "Begleitheft")) + "</div></div>" + modeSwitch();
+    head += exclFlags(n.id);
+    (n.flags || []).forEach(f => head += '<div class="flag"><b>Achtung Quelle:</b> ' + esc(f) + "</div>");
+    let html = nfMode === "scene" ? renderNfScene(n, head) : renderNfLearn(n, head);
+    html += DISCLAIMER + "</article>";
+    view.innerHTML = html; bindRows(); bindMode(); bindScene(n);
+    if (!keepScroll) scrollTop();
+    else { const c = view.querySelector(".sccur"); if (c) { const r = c.getBoundingClientRect(); if (r.top < 70 || r.bottom > innerHeight - 80) window.scrollTo(0, scrollY + r.top - 120); } }
+  }
+
 
   // ── Hinweise ──
   function renderInfo() {
     let html = '<article class="detail"><div class="dh"><h2>Hinweise</h2></div>';
-    html += '<section class="card ki"><h3>Wofür diese App ist</h3><ul><li>Inoffizielle Nachschlage-App, nicht herausgegeben von den Ärztlichen Leitungen Rettungsdienst. Inhalte aus dem Gemeinsamen Kompendium Rettungsdienst 2026 und dem Begleitheft Medikamente 2026/2027.</li><li>Schnelles Nachschlagen im Einsatz. Sie ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.</li><li>Laut Begleitheft gelten die aufgeführten Kontraindikationen als absolute Kontraindikationen, solange Notfallsanitäter ohne (tele-)notärztliche Unterstützung tätig werden.</li><li>Vor jeder Gabe: Notarztruf nach lokalem Indikationskatalog, Aufklärung und Einwilligung, 6-R-Regel (Patient, Medikament, Dosierung, Zeitpunkt, Konzentration, Applikationsart), Spritzen beschriften, Doppelkontrolle („read back“).</li></ul></section>';
+    html += '<section class="card ki"><h3>Wofür diese App ist</h3><ul><li>Inoffizielle Nachschlage-App, nicht herausgegeben von den Ärztlichen Leitungen Rettungsdienst. Inhalte aus dem Gemeinsamen Kompendium Rettungsdienst 2026 und dem Begleitheft Medikamente 2026/2027.</li><li>Jedes Notfallbild hat zwei Ansichten: „Lernen“ zeigt alles geordnet mit Inhaltsverzeichnis, „Einsatz“ führt Schritt für Schritt mit Ja/Nein-Tasten durch das Flussdiagramm (ohne Diagramm: Abhakliste). Die gewählte Ansicht bleibt gespeichert.</li><li>Schnelles Nachschlagen im Einsatz. Sie ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.</li><li>Laut Begleitheft gelten die aufgeführten Kontraindikationen als absolute Kontraindikationen, solange Notfallsanitäter ohne (tele-)notärztliche Unterstützung tätig werden.</li><li>Vor jeder Gabe: Notarztruf nach lokalem Indikationskatalog, Aufklärung und Einwilligung, 6-R-Regel (Patient, Medikament, Dosierung, Zeitpunkt, Konzentration, Applikationsart), Spritzen beschriften, Doppelkontrolle („read back“).</li></ul></section>';
     html += '<section class="card do"><h3>Rettungsdienstbereich: ' + esc(regName(region).replace(/ \(.*\)$/, "")) + '</h3><p style="margin:0">Bei jedem Medikament und Notfallbild steht die Mindestqualifikation aus der Kompetenztabelle dieses Bereichs.</p><div class="chips"><button class="chip" data-go="komp">Alle ' + KOMP.length + ' Einträge und Legende</button><button class="chip" data-go="bereich">Bereich wechseln</button></div></section>';
     html += '<section class="card"><h3>Quellen</h3><ul><li>Gemeinsames Kompendium Rettungsdienst 2026 (Seitenangabe „Kompendium S.“ / „KP“)</li><li>Begleitheft Medikamente 2026/2027 (Seitenangabe „Begleitheft S.“ / „BH“)</li><li>Keine Inhalte aus anderen Quellen oder Allgemeinwissen ergänzt.</li></ul></section>';
     html += '<section class="card"><h3>Was die App bewusst nicht enthält</h3><ul><li>Die Kompetenztabellen der invasiven Maßnahmen sind enthalten, deren SAA-Texte (Durchführung, Risiken) aber nicht.</li><li>Die Flussdiagramme als Originalgrafik. Sie sind als „Ablauf“ mit allen Ja/Nein-Zweigen nachgebaut; bei Unklarheit gilt das Original.</li><li>Die SAA zu invasiven Maßnahmen (i.v./i.o.-Zugang, EGA, Defibrillation usw.).</li></ul></section>';
