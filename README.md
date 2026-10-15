@@ -1,8 +1,8 @@
-# RD-Kompendium Nachschlag
+# Gemeinsames Kompendium Rettungsdienst – inoffizielle Nachschlage-App
 
 Offline-fähige Web-App zum Nachschlagen im Rettungsdienst: Medikamente mit gewichtsbasierter Dosierhilfe, Notfallbilder / Leitsymptome und Kompetenzen je Rettungsdienstbereich.
 
-Inhalte ausschließlich aus dem *Gemeinsamen Kompendium Rettungsdienst 2026* und dem *Begleitheft Medikamente 2026/2027*. Bei abweichenden Angaben gilt das Kompendium. Die App ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.
+Nicht herausgegeben von den Ärztlichen Leitungen Rettungsdienst. Inhalte ausschließlich aus dem *Gemeinsamen Kompendium Rettungsdienst 2026* und dem *Begleitheft Medikamente 2026/2027*. Bei abweichenden Angaben gilt das Kompendium. Die App ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.
 
 ## Auf iPhone / iPad installieren
 

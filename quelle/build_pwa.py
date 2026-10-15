@@ -13,7 +13,7 @@ pre='''<!doctype html>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="apple-mobile-web-app-title" content="RD-Nachschlag">
+<meta name="apple-mobile-web-app-title" content="Kompendium RD">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -26,8 +26,8 @@ if ("serviceWorker" in navigator) { window.addEventListener("load", () => { navi
 doc=pre+head+'\n</head>\n<body>\n'+body+'\n'+sw_reg+'</body>\n</html>\n'
 open(out+'index.html','w').write(doc)
 open(out+'manifest.webmanifest','w').write('''{
-  "name": "RD-Kompendium Nachschlag",
-  "short_name": "RD-Nachschlag",
+  "name": "Gemeinsames Kompendium Rettungsdienst",
+  "short_name": "Kompendium RD",
   "lang": "de",
   "start_url": "./",
   "scope": "./",
@@ -71,7 +71,7 @@ def icon(s):
     d.text((c,c),"RD",font=f,fill='#1d2a33',anchor='mm')
     return im
 for s in (180,192,512): icon(s).save(out+f'icon-{s}.png')
-open(out+'ANLEITUNG.txt','w').write('''RD-Kompendium Nachschlag – Offline-Web-App für iPhone / iPad
+open(out+'ANLEITUNG.txt','w').write('''Gemeinsames Kompendium Rettungsdienst (inoffizielle Nachschlage-App) – Offline-Web-App für iPhone / iPad
 
 1. Diesen Ordner (alle Dateien) auf einen Webspace mit HTTPS hochladen,
    z. B. kostenlos per Drag-and-drop auf https://app.netlify.com/drop

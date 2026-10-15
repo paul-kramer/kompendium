@@ -1,6 +1,6 @@
 {
-  "name": "RD-Kompendium Nachschlag",
-  "short_name": "RD-Nachschlag",
+  "name": "Gemeinsames Kompendium Rettungsdienst",
+  "short_name": "Kompendium RD",
   "lang": "de",
   "start_url": "./",
   "scope": "./",
