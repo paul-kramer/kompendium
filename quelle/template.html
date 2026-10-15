@@ -1,0 +1,440 @@
+<title>RD-Kompendium Nachschlag</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="theme-color" content="#1d2a33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: eine Spalte wie ein Taschenheft, Suche oben, Navigation unten am Daumen; Ergebnisse als ruhige Zeilen, Warnungen als farbige Streifen. */
+:root {
+  --bg: #eef1f2;
+  --surface: #ffffff;
+  --ink: #16222b;
+  --muted: #56636c;
+  --line: #d4dadd;
+  --accent: #c2410c;      /* Signalorange */
+  --accent-ink: #ffffff;
+  --accent-soft: #fde9df;
+  --warn: #8a5a00;
+  --warn-bg: #fff4d6;
+  --block: #a11a1a;
+  --block-bg: #fde4e4;
+  --ok: #1d6b43;
+  --ok-bg: #e2f3e9;
+  --bar: #1d2a33;
+  --bar-ink: #f2f5f6;
+  --f-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-num: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f151a; --surface: #182129; --ink: #e5ebee; --muted: #9aa8b1; --line: #2b3842;
+  --accent: #ff8a4c; --accent-ink: #1a0f08; --accent-soft: #3a2116;
+  --warn: #f4c560; --warn-bg: #33290f; --block: #ff8d8d; --block-bg: #3a1a1c; --ok: #7fd6a3; --ok-bg: #15301f;
+  --bar: #0a0f13; --bar-ink: #e5ebee; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f151a; --surface: #182129; --ink: #e5ebee; --muted: #9aa8b1; --line: #2b3842;
+  --accent: #ff8a4c; --accent-ink: #1a0f08; --accent-soft: #3a2116;
+  --warn: #f4c560; --warn-bg: #33290f; --block: #ff8d8d; --block-bg: #3a1a1c; --ok: #7fd6a3; --ok-bg: #15301f;
+  --bar: #0a0f13; --bar-ink: #e5ebee; color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--f-body); -webkit-text-size-adjust: 100%; }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bar); color: var(--bar-ink);
+  padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.top-in { max-width: 760px; margin: 0 auto; display: grid; gap: 8px; }
+.brand { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.brand h1 { margin: 0; font: 700 1.35rem/1 var(--f-display); letter-spacing: .02em; text-transform: uppercase; flex: 1; min-width: 0; text-wrap: balance; }
+.brand h1 span { color: var(--accent); }
+.back { background: transparent; border: 1px solid #ffffff40; color: var(--bar-ink); border-radius: 8px; padding: 4px 12px; min-height: 36px; cursor: pointer; }
+.kgchip { font: 600 .9rem/1 var(--f-num); background: var(--accent); color: var(--accent-ink); border: 0; border-radius: 999px; padding: 8px 12px; cursor: pointer; white-space: nowrap; }
+.regchip { background: transparent; color: var(--bar-ink); border: 1px solid #ffffff60; max-width: 11ch; overflow: hidden; text-overflow: ellipsis; }
+.search { width: 100%; border: 0; border-radius: 8px; padding: 11px 14px; background: #ffffff; color: #16222b; font-size: 1rem; }
+:root[data-theme="dark"] .search { background: #24303a; color: var(--ink); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .search { background: #24303a; color: var(--ink); } }
+.search::placeholder { color: #7b8890; }
+
+main { max-width: 760px; margin: 0 auto; padding-block: 14px 110px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 14px; }
+.notice { font-size: .85rem; color: var(--muted); border-left: 4px solid var(--accent); padding: 6px 10px; background: var(--surface); border-radius: 0 8px 8px 0; }
+.notice strong { color: var(--ink); }
+
+h2.sec { font: 700 1.05rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 8px 0 0; }
+.list { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.row { display: flex; align-items: center; gap: 12px; background: var(--surface); padding: 12px 14px; min-height: 52px; text-decoration: none; color: inherit; border: 0; width: 100%; text-align: left; cursor: pointer; }
+.row:hover { background: var(--accent-soft); }
+.row .t { flex: 1; min-width: 0; }
+.row .t b { display: block; font-weight: 700; }
+.row .t small { display: block; color: var(--muted); font-size: .85rem; overflow-wrap: anywhere; }
+.row .pg { font: 500 .78rem/1 var(--f-num); color: var(--muted); white-space: nowrap; }
+.dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: var(--line); }
+.dot.calc { background: var(--accent); }
+.dot.flag { background: var(--warn); }
+
+.detail { display: grid; gap: 14px; }
+.dh { display: grid; gap: 4px; }
+.dh h2 { margin: 0; font: 700 2rem/1.05 var(--f-display); text-wrap: balance; }
+.dh .meta { color: var(--muted); font-size: .9rem; }
+.src { font: 500 .8rem/1.4 var(--f-num); color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 8px; min-width: 0; }
+.card h3 { margin: 0; font: 700 1rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; }
+.card ul { margin: 0; padding-left: 1.15em; display: grid; gap: 4px; }
+.card.ki { border-left: 6px solid var(--block); }
+.card.ki h3 { color: var(--block); }
+.card.dos { border-left: 6px solid var(--accent); }
+.card.dos h3 { color: var(--accent); }
+.flag { background: var(--warn-bg); color: var(--ink); border-left: 6px solid var(--warn); border-radius: 8px; padding: 10px 12px; font-size: .92rem; }
+.flag b { color: var(--warn); }
+.hint { font-size: .85rem; color: var(--muted); font-style: italic; }
+.grid2 { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; cursor: pointer; font-size: .92rem; }
+.chip:hover { border-color: var(--accent); }
+
+/* Dosierhilfe */
+.kgbox { background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 12px 14px; display: grid; gap: 10px; }
+.kgrow { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; }
+.kgrow label { display: grid; gap: 4px; font-weight: 700; font-size: .9rem; }
+.kgin { width: 9ch; font: 600 1.6rem/1 var(--f-num); padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+.steps { display: flex; gap: 6px; flex-wrap: wrap; }
+.steps button { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 8px 10px; font: 500 .9rem var(--f-num); cursor: pointer; min-width: 48px; }
+.res { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.res + .res { margin-top: 0; }
+.res-h { display: flex; gap: 8px; align-items: baseline; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.res-h b { font: 700 1.15rem/1.1 var(--f-display); }
+.res-h button { background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; font-size: .85rem; text-decoration: underline; }
+.rule { padding: 10px 14px; display: grid; gap: 6px; border-top: 1px solid var(--line); }
+.rule:first-of-type { border-top: 0; }
+.rule .lab { font-weight: 700; }
+.rule .lab small { font-weight: 400; color: var(--muted); }
+.big { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
+.dose { font: 600 1.55rem/1.1 var(--f-num); font-variant-numeric: tabular-nums; }
+.vol { font: 500 .95rem/1.3 var(--f-num); color: var(--ink); }
+.vol span { color: var(--muted); font-family: var(--f-body); font-size: .85rem; }
+.formula { font: 500 .8rem/1.3 var(--f-num); color: var(--muted); }
+.msg { font-size: .88rem; padding: 6px 10px; border-radius: 6px; }
+.msg.block { background: var(--block-bg); color: var(--block); font-weight: 700; }
+.msg.cap { background: var(--warn-bg); color: var(--warn); font-weight: 700; }
+.msg.info { background: var(--bg); color: var(--muted); }
+.msg.warn { background: var(--warn-bg); color: var(--ink); border-left: 4px solid var(--warn); }
+.rule.blocked .dose, .rule.blocked .vol { opacity: .45; text-decoration: line-through; }
+.bands { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: .9rem; }
+.bands li { padding: 3px 8px; border-radius: 6px; color: var(--muted); }
+.bands li.on { background: var(--ok-bg); color: var(--ok); font-weight: 700; }
+.dotab { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.dotab td { border-top: 1px solid var(--line); padding: 6px 4px; vertical-align: top; }
+.dotab td.lv { text-align: right; white-space: nowrap; font: 600 .9rem/1.3 var(--f-num); }
+.dotab td.lv.none { color: var(--muted); font-weight: 500; font-style: italic; }
+.dotab small { display: block; color: var(--muted); font-size: .8rem; }
+.dotab tr.g td { border-top: 0; padding-top: 12px; font: 700 .8rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.card.do { border-left: 6px solid var(--ok); }
+.dotab details { margin-top: 4px; font-size: .85rem; }
+.dotab details summary { cursor: pointer; color: var(--muted); }
+.allreg { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; margin-top: 4px; }
+.allreg .on { font-weight: 700; color: var(--ok); }
+.flag.excl { background: var(--block-bg, var(--warn-bg)); border-left-color: var(--block); }
+table.age { border-collapse: collapse; width: 100%; font-size: .92rem; }
+table.age td { border-top: 1px solid var(--line); padding: 5px 4px; vertical-align: top; }
+table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
+
+.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0px); padding-left: max(8px, env(safe-area-inset-left, 0px)); padding-right: max(8px, env(safe-area-inset-right, 0px)); }
+.tabs-in { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+.tab { background: none; border: 0; padding: 10px 4px 12px; cursor: pointer; display: grid; justify-items: center; gap: 3px; font: 700 .78rem/1 var(--f-body); color: var(--muted); border-top: 3px solid transparent; }
+.tab svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tab[aria-current="page"] { color: var(--accent); border-top-color: var(--accent); }
+.empty { color: var(--muted); padding: 20px 4px; text-align: center; }
+@media (prefers-reduced-motion: no-preference) { .row, .chip { transition: background .12s, border-color .12s; } }
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <button class="back" id="back" hidden aria-label="Zurück">‹ Zurück</button>
+      <h1>RD-Kompendium <span>Nachschlag</span></h1>
+      <button class="kgchip regchip" id="regchip" aria-label="Rettungsdienstbereich wählen">Bereich</button>
+      <button class="kgchip" id="kgchip" aria-label="Gewicht für Dosierhilfe">– kg</button>
+    </div>
+    <input class="search" id="q" type="search" placeholder="Suchen: Medikament, Notfallbild, Symptom …" autocomplete="off" aria-label="Suche">
+  </div>
+</header>
+
+<main id="view"></main>
+
+<nav class="tabs" aria-label="Bereiche">
+  <div class="tabs-in">
+    <button class="tab" data-tab="meds"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="6" rx="3" transform="rotate(-45 12 12)"/><path d="M9.2 9.2l5.6 5.6"/></svg>Medikamente</button>
+    <button class="tab" data-tab="nf"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>Notfälle</button>
+    <button class="tab" data-tab="dose"><svg viewBox="0 0 24 24"><path d="M5 20h14l-2-11H7z"/><circle cx="12" cy="6" r="2.5"/></svg>Dosierhilfe</button>
+    <button class="tab" data-tab="info"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg>Hinweise</button>
+  </div>
+</nav>
+
+<script>
+/*__DATA__*/
+</script>
+<script>
+(function () {
+  const $ = s => document.querySelector(s);
+  const view = $("#view"), q = $("#q"), back = $("#back"), kgchip = $("#kgchip"), regchip = $("#regchip");
+  const regByCode = Object.fromEntries(KOMP_REGIONS.map(r => [r.c, r]));
+  let region = null;
+  try { const r = localStorage.getItem("rdregion"); if (r === "*" || regByCode[r]) region = r; } catch (e) {}
+  function setRegion(r) { region = r; try { localStorage.setItem("rdregion", r); } catch (e) {} regchip.textContent = r === "*" ? "Alle" : (r || "Bereich"); }
+  setRegion0();
+  function setRegion0() { regchip.textContent = region === "*" ? "Alle" : (region ? (region === "TNA - Bergisches Land" ? "TNA-BL" : region) : "Bereich"); }
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const medById = Object.fromEntries(MEDS.map(m => [m.id, m]));
+  const nfById = Object.fromEntries(NOTFAELLE.map(n => [n.id, n]));
+  let weight = null;
+  try { const w = parseFloat(sessionStorage.getItem("rdkg")); if (w > 0) weight = w; } catch (e) {}
+  const DISCLAIMER = '<div class="notice"><strong>Nur Nachschlagehilfe.</strong> Ersetzt nicht die lokal gültige SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung. Inhalte ausschließlich aus Kompendium 2026 und Begleitheft 2026/2027.</div>';
+
+  function srcLine(m) {
+    const p = [];
+    if (m.src.kp) p.push("Kompendium S. " + m.src.kp);
+    if (m.src.bh) p.push("Begleitheft S. " + m.src.bh);
+    return p.join(" · ");
+  }
+  function setWeight(w) {
+    weight = w > 0 && w <= 300 ? Math.round(w * 10) / 10 : null;
+    try { weight ? sessionStorage.setItem("rdkg", weight) : sessionStorage.removeItem("rdkg"); } catch (e) {}
+    kgchip.textContent = weight ? fmt(weight, 1) + " kg" : "– kg";
+  }
+  setWeight(weight);
+
+  // ── Routing über #token ──
+  function go(h) { if (location.hash === "#" + h) render(); else location.hash = h; }
+  window.addEventListener("hashchange", render);
+  document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => { q.value = ""; go(b.dataset.tab); }));
+  back.addEventListener("click", () => history.length > 1 ? history.back() : go("meds"));
+  kgchip.addEventListener("click", () => go("dose"));
+  regchip.addEventListener("click", () => go("bereich"));
+  q.addEventListener("input", () => { const t = currentTab(); if (t !== "meds" && t !== "nf" && t !== "dose") { go("meds"); } else render(); });
+
+  function currentTab() {
+    const h = location.hash.slice(1) || "meds";
+    if (h.startsWith("m-")) return "meds";
+    if (h.startsWith("n-")) return "nf";
+    if (h === "komp" || h === "bereich") return "info";
+    return h;
+  }
+  function render() {
+    const h = location.hash.slice(1) || "meds";
+    const tab = currentTab();
+    document.querySelectorAll(".tab").forEach(b => b.dataset.tab === tab ? b.setAttribute("aria-current", "page") : b.removeAttribute("aria-current"));
+    const isDetail = h.startsWith("m-") || h.startsWith("n-") || h === "komp" || h === "bereich";
+    back.hidden = !isDetail;
+    q.parentElement.querySelector(".search").hidden = isDetail;
+    if (h.startsWith("m-") && medById[h.slice(2)]) return renderMed(medById[h.slice(2)]);
+    if (h.startsWith("n-") && nfById[h.slice(2)]) return renderNf(nfById[h.slice(2)]);
+    if (tab === "nf") return renderNfList();
+    if (tab === "dose") return renderDose();
+    if (h === "bereich" || !region) return renderRegion();
+    if (h === "komp") return renderKomp();
+    if (tab === "info") return renderInfo();
+    return renderMedList();
+  }
+  function scrollTop() { window.scrollTo(0, 0); }
+
+  // ── Suche ──
+  function norm(s) { return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+  function medText(m) { return norm([m.name, m.search, m.wirkstoff, m.gruppe, ...(m.ind || [])].join(" ")); }
+  function nfText(n) { return norm([n.title, n.search, n.cat, ...n.sections.flatMap(s => [s.h, ...s.items])].join(" ")); }
+  function matches(text, query) { const words = norm(query).split(/\s+/).filter(Boolean); return words.every(w => text.includes(w)); }
+
+  // ── Medikamente ──
+  function renderMedList() {
+    const query = q.value.trim();
+    const meds = MEDS.filter(m => !query || matches(medText(m), query)).sort((a, b) => a.name.localeCompare(b.name, "de"));
+    const nfs = query ? NOTFAELLE.filter(n => matches(nfText(n), query)) : [];
+    let html = DISCLAIMER;
+    html += '<h2 class="sec">Medikamente (' + meds.length + ')</h2>';
+    html += meds.length ? '<div class="list">' + meds.map(medRow).join("") + "</div>" : '<p class="empty">Kein Medikament gefunden.</p>';
+    if (nfs.length) html += '<h2 class="sec">Passende Notfallbilder</h2><div class="list">' + nfs.map(nfRow).join("") + "</div>";
+    html += '<p class="hint">Orangener Punkt: mit Dosierhilfe. Gelber Punkt: Quellen widersprechen sich oder Angabe unklar.</p>';
+    view.innerHTML = html; bindRows();
+  }
+  function medRow(m) {
+    const dot = m.flags.length ? "flag" : (m.calc.length ? "calc" : "");
+    return '<button class="row" data-go="m-' + m.id + '"><span class="dot ' + dot + '"></span><span class="t"><b>' + esc(m.name) + "</b><small>" + esc(m.ind.join(" · ")) + '</small></span><span class="pg">KP ' + (m.src.kp || "–") + "</span></button>";
+  }
+  function nfRow(n) {
+    return '<button class="row" data-go="n-' + n.id + '"><span class="dot ' + (n.flags && n.flags.length ? "flag" : "") + '"></span><span class="t"><b>' + esc(n.title) + "</b><small>" + esc(n.cat) + '</small></span><span class="pg">' + esc(n.src.replace("KP ", "")) + "</span></button>";
+  }
+  function bindRows() { view.querySelectorAll("[data-go]").forEach(el => el.addEventListener("click", () => go(el.dataset.go))); }
+  function ul(items) { return "<ul>" + items.map(i => "<li>" + esc(i) + "</li>").join("") + "</ul>"; }
+  function card(title, items, cls) { if (!items || !items.length) return ""; return '<section class="card ' + (cls || "") + '"><h3>' + esc(title) + "</h3>" + ul(items) + "</section>"; }
+
+  // ── Kompetenz nach Rettungsdienstbereich ──
+  function regName(c) { return c === "*" ? "alle Bereiche" : (regByCode[c] ? regByCode[c].n : c); }
+  function regShort(c) { return c === "TNA - Bergisches Land" ? "TNA-BL" : c; }
+  function allRegHtml(r) {
+    return '<details><summary>Alle Bereiche</summary><div class="allreg">' + KOMP_REGIONS.map(x => '<span class="' + (x.c === region ? "on" : "") + '">' + esc(x.n.replace(/ \(.*\)$/, "")) + '</span><span class="' + (x.c === region ? "on" : "") + '">' + esc(r.v[x.c] || "–") + "</span>" + (r.n && r.n[x.c] ? '<small style="grid-column:1/-1">* ' + esc(r.n[x.c].join(" · ")) + "</small>" : "")).join("") + "</div></details>";
+  }
+  function kompRows(rows, withGroup) {
+    let last = null, h = "";
+    rows.forEach(d => {
+      if (withGroup && d.g !== last) { h += '<tr class="g"><td colspan="2">' + esc(d.g) + "</td></tr>"; last = d.g; }
+      const notes = region !== "*" && d.n && d.n[region] ? d.n[region] : [];
+      const val = region === "*" ? "" : (d.v[region] || "");
+      h += "<tr><td>" + esc(d.l) + "<small>" + esc((withGroup ? "" : d.g + " · ") + d.src) + "</small>" + notes.map(n => "<small><b>* " + esc(n) + "</b></small>").join("") + allRegHtml(d) + "</td>";
+      h += region === "*" ? "<td></td></tr>" : '<td class="lv' + (val ? "" : " none") + '">' + (val ? esc(val) : "kein Eintrag") + "</td></tr>";
+    });
+    return '<table class="dotab">' + h + "</table>";
+  }
+  function kompCard(rows) {
+    if (!rows.length) return "";
+    return '<section class="card do"><h3>Kompetenz – ' + esc(region === "*" ? "alle Bereiche" : regShort(region)) + "</h3>" + kompRows(rows, false) + '<div class="chips"><button class="chip" data-go="komp">Legende und alle Maßnahmen</button><button class="chip" data-go="bereich">Bereich wechseln</button></div></section>';
+  }
+  function exclFlags(id) {
+    let h = "";
+    const e = NF_EXCL[id];
+    if (e && region !== "*" && e.r.includes(region)) h += '<div class="flag excl"><b>Gilt nicht in ' + esc(regName(region)) + ":</b> " + esc(e.t) + " – laut Kompendium „außer: " + esc(regName(region)) + "“.</div>";
+    if (id === "mstart") MSTART_EXCL.forEach(x => { if (region !== "*" && x.r.includes(region)) h += '<div class="flag excl"><b>Gilt nicht in ' + esc(regName(region)) + ":</b> " + esc(x.t) + " (laut Kompendium „außer“).</div>"; });
+    return h;
+  }
+  function renderRegion() {
+    let html = '<article class="detail"><div class="dh"><h2>Rettungsdienstbereich</h2><div class="meta">In welchem Bereich bist du im Einsatz? Danach zeigt die App bei jedem Medikament und Notfallbild die Mindestqualifikation aus der Kompetenztabelle dieses Bereichs.</div></div>';
+    html += '<div class="list">' + KOMP_REGIONS.slice().sort((a, b) => a.n.localeCompare(b.n, "de")).map(r => '<button class="row" data-reg="' + esc(r.c) + '"><span class="dot' + (r.c === region ? " calc" : "") + '"></span><span class="t"><b>' + esc(r.n.replace(/ \(.*\)$/, "")) + "</b>" + (/\(/.test(r.n) ? "<small>" + esc(r.n.match(/\((.*)\)/)[1]) + "</small>" : "") + '</span><span class="pg">' + esc(regShort(r.c)) + "</span></button>").join("") + '<button class="row" data-reg="*"><span class="dot' + (region === "*" ? " calc" : "") + '"></span><span class="t"><b>Kein Bereich</b><small>Bei jeder Maßnahme alle Bereiche zum Aufklappen</small></span></button></div>';
+    html += '<div class="notice">Die Auswahl wird nur auf diesem Gerät gespeichert und lässt sich jederzeit oben über den Bereichs-Knopf ändern.</div></article>';
+    view.innerHTML = html;
+    view.querySelectorAll("[data-reg]").forEach(b => b.addEventListener("click", () => { setRegion(b.dataset.reg); setRegion0(); go("meds"); }));
+    scrollTop();
+  }
+  function renderKomp() {
+    let html = '<article class="detail"><div class="dh"><h2>Kompetenz ' + esc(region === "*" ? "– alle Bereiche" : regName(region).replace(/ \(.*\)$/, "")) + '</h2><div class="meta">Kompetenztabellen im Kompendium 2026</div></div>';
+    html += '<div class="notice">' + esc(KOMP_NOTE) + "</div>";
+    html += card("Legende", KOMP_LEGEND);
+    html += '<section class="card do"><h3>Alle Einträge (' + KOMP.length + ")</h3>" + kompRows(KOMP, true) + "</section>";
+    html += DISCLAIMER + "</article>";
+    view.innerHTML = html; bindRows(); scrollTop();
+  }
+  function renderMed(m) {
+    let html = '<article class="detail"><div class="dh"><h2>' + esc(m.name) + '</h2><div class="meta">' + esc(m.gruppe) + '</div><div class="src">' + esc(srcLine(m)) + "</div></div>";
+    html += m.flags.map(f => '<div class="flag"><b>Achtung Quelle:</b> ' + esc(f) + "</div>").join("");
+    if (m.calc.length) html += weight ? calcBlock(m, true) : '<div class="flag" style="border-color:var(--accent);background:var(--accent-soft)"><b style="color:var(--accent)">Dosierhilfe:</b> Gewicht eingeben über den Knopf „kg“ oben rechts, dann erscheinen hier die berechneten Dosen.</div>';
+    html += card("Durchführung / Dosierung", m.dos, "dos");
+    html += kompCard(KOMP.filter(d => d.med.includes(m.id)));
+    html += '<div class="grid2">' + card("Indikationen", m.ind) + '<section class="card"><h3>Wirkstoff / Konzentration</h3><p style="margin:0"><b>' + esc(m.wirkstoff) + "</b><br>" + esc(m.konz) + "</p></section></div>";
+    html += card("Keine Anwendung, wenn", m.ki, "ki");
+    html += '<section class="card ki"><h3>Altersbegrenzung</h3><p style="margin:0">' + esc(m.alter) + "</p></section>";
+    html += card("Nutzen-Risiko-Abwägung, wenn", m.nra);
+    html += card("Unerwünschte Wirkungen / Risiken", m.uaw);
+    html += card("Überdosierung / Gegenmaßnahmen", m.ueber);
+    html += card("Besonderheiten", m.bes);
+    const linked = NOTFAELLE.filter(n => (n.meds || []).includes(m.id));
+    if (linked.length) html += '<section class="card"><h3>Kommt vor in</h3><div class="chips">' + linked.map(n => '<button class="chip" data-go="n-' + n.id + '">' + esc(n.title) + "</button>").join("") + "</div></section>";
+    html += DISCLAIMER + "</article>";
+    view.innerHTML = html; bindRows(); scrollTop();
+  }
+
+  // ── Dosierhilfe ──
+  function ruleHtml(r) {
+    const blocked = r.status === "block";
+    let h = '<div class="rule' + (blocked ? " blocked" : "") + '"><div class="lab">' + esc(r.label) + (r.route ? " <small>· " + esc(r.route) + "</small>" : "") + "</div>";
+    if (r.warn) h += '<div class="msg warn">' + esc(r.warn) + "</div>";
+    if (r.kind === "agetable") {
+      h += '<table class="age">' + r.rows.map(x => "<tr><td>" + esc(x[0]) + "</td><td>" + esc(x[1]) + "</td></tr>").join("") + "</table>";
+    } else if (r.status === "nodata") {
+      h += '<div class="msg info">Gewicht eingeben.</div>';
+    } else if (r.kind === "range") {
+      h += '<div class="big"><span class="dose">' + fmt(r.lo) + "–" + fmt(r.hi) + " " + esc(r.unit) + '</span></div><div class="formula">' + esc(r.formula) + "</div>";
+    } else {
+      r.messages.filter(x => x.t === "block").forEach(x => h += '<div class="msg block">' + esc(x.m) + "</div>");
+      if (r.dose !== undefined) {
+        h += '<div class="big"><span class="dose">' + fmt(r.dose) + " " + esc(r.unit) + "</span>";
+        (r.vol || []).forEach(v => h += '<span class="vol">' + fmt(v.ml, 2) + " ml <span>bei " + esc(v.label) + "</span></span>");
+        h += '</div><div class="formula">' + esc(r.formula) + "</div>";
+      }
+      r.messages.filter(x => x.t !== "block").forEach(x => h += '<div class="msg ' + x.t + '">' + esc(x.m) + "</div>");
+      if (r.bands) h += '<ul class="bands">' + r.bands.map(b => '<li class="' + (b.active ? "on" : "") + '">' + esc(b.text) + "</li>").join("") + "</ul>";
+    }
+    if (r.note) h += '<div class="hint">' + esc(r.note) + "</div>";
+    return h + "</div>";
+  }
+  function calcBlock(m, inDetail) {
+    const rules = m.calc.map(c => ruleHtml(computeRule(c, weight))).join("");
+    return '<section class="res"><div class="res-h"><b>' + (inDetail ? "Dosierhilfe für " + fmt(weight, 1) + " kg" : esc(m.name)) + "</b>" + (inDetail ? '<button data-go="dose">Gewicht ändern</button>' : '<button data-go="m-' + m.id + '">Alle Angaben</button>') + "</div>" + rules + "</section>";
+  }
+  function renderDose() {
+    const query = q.value.trim();
+    let html = '<section class="kgbox"><div class="kgrow"><label for="kg">Körpergewicht (kg)<input class="kgin" id="kg" type="number" inputmode="decimal" min="0.5" max="300" step="0.1" value="' + (weight ?? "") + '" placeholder="z.B. 20"></label>' +
+      '<div class="steps">' + [3, 5, 10, 15, 20, 30, 50, 70, 90].map(k => '<button data-kg="' + k + '">' + k + "</button>").join("") + "</div></div>" +
+      '<div class="hint">Berechnet werden nur Dosen, die in der Quelle gewichtsbezogen angegeben sind. Fentanyl: ideales Körpergewicht. Volumen nur bei Konzentrationen, die die Quelle nennt. Altersgrenzen stehen bei jedem Eintrag und werden nicht automatisch geprüft.</div></section>';
+    const meds = MEDS.filter(m => m.calc.length && (!query || matches(medText(m), query))).sort((a, b) => a.name.localeCompare(b.name, "de"));
+    if (!weight) html += '<p class="empty">Gewicht eingeben oder einen Schnellwert antippen.</p>';
+    else {
+      html += meds.map(m => calcBlock(m, false)).join("");
+      if (!query) html += EXTRA_CALC.map(x => '<section class="res"><div class="res-h"><b>' + esc(x.title) + '</b><span class="src">' + esc(x.src) + "</span></div>" + x.calc.map(c => ruleHtml(computeRule(c, weight))).join("") + "</section>").join("");
+      if (!meds.length) html += '<p class="empty">Kein Medikament mit Dosierhilfe passt zur Suche.</p>';
+    }
+    html += DISCLAIMER;
+    view.innerHTML = html; bindRows();
+    const kg = $("#kg");
+    kg.addEventListener("input", () => { const v = parseFloat(String(kg.value).replace(",", ".")); setWeight(v); updateDoseResults(); });
+    view.querySelectorAll("[data-kg]").forEach(b => b.addEventListener("click", () => { setWeight(+b.dataset.kg); render(); }));
+  }
+  function updateDoseResults() {
+    // Ergebnisse neu zeichnen, ohne das Eingabefeld zu ersetzen
+    const box = view.querySelector(".kgbox");
+    view.querySelectorAll(".res, .empty, .notice").forEach(el => el.remove());
+    const query = q.value.trim();
+    let html = "";
+    const meds = MEDS.filter(m => m.calc.length && (!query || matches(medText(m), query))).sort((a, b) => a.name.localeCompare(b.name, "de"));
+    if (!weight) html += '<p class="empty">Gewicht eingeben oder einen Schnellwert antippen.</p>';
+    else {
+      html += meds.map(m => calcBlock(m, false)).join("");
+      if (!query) html += EXTRA_CALC.map(x => '<section class="res"><div class="res-h"><b>' + esc(x.title) + '</b><span class="src">' + esc(x.src) + "</span></div>" + x.calc.map(c => ruleHtml(computeRule(c, weight))).join("") + "</section>").join("");
+    }
+    html += DISCLAIMER;
+    box.insertAdjacentHTML("afterend", html); bindRows();
+  }
+
+  // ── Notfälle ──
+  const CATS = ["Herangehensweise", "Reanimation", "Leitsymptom", "Krankheitsbild", "Trauma / MANV"];
+  function renderNfList() {
+    const query = q.value.trim();
+    let html = DISCLAIMER;
+    let count = 0;
+    CATS.forEach(c => {
+      const items = NOTFAELLE.filter(n => n.cat === c && (!query || matches(nfText(n), query)));
+      count += items.length;
+      if (items.length) html += '<h2 class="sec">' + esc(c === "Leitsymptom" ? "Leitsymptome" : c === "Krankheitsbild" ? "Krankheitsbilder" : c) + "</h2><div class=\"list\">" + items.map(nfRow).join("") + "</div>";
+    });
+    if (!count) html += '<p class="empty">Kein Notfallbild gefunden.</p>';
+    if (query) { const meds = MEDS.filter(m => matches(medText(m), query)); if (meds.length) html += '<h2 class="sec">Passende Medikamente</h2><div class="list">' + meds.map(medRow).join("") + "</div>"; }
+    view.innerHTML = html; bindRows();
+  }
+  function renderNf(n) {
+    let html = '<article class="detail"><div class="dh"><h2>' + esc(n.title) + '</h2><div class="meta">' + esc(n.cat) + '</div><div class="src">' + esc(n.src.replace("KP", "Kompendium").replace("BH", "Begleitheft")) + "</div></div>";
+    html += exclFlags(n.id);
+    (n.flags || []).forEach(f => html += '<div class="flag"><b>Achtung Quelle:</b> ' + esc(f) + "</div>");
+    if (n.note) html += '<div class="hint">' + esc(n.note) + "</div>";
+    html += n.sections.map(s => card(s.h, s.items)).join("");
+    html += kompCard(KOMP.filter(d => d.nf.includes(n.id)));
+    if (n.meds && n.meds.length) html += '<section class="card"><h3>Medikamente</h3><div class="chips">' + n.meds.map(id => '<button class="chip" data-go="m-' + id + '">' + esc(medById[id].name) + "</button>").join("") + "</div></section>";
+    html += DISCLAIMER + "</article>";
+    view.innerHTML = html; bindRows(); scrollTop();
+  }
+
+  // ── Hinweise ──
+  function renderInfo() {
+    let html = '<article class="detail"><div class="dh"><h2>Hinweise</h2></div>';
+    html += '<section class="card ki"><h3>Wofür diese App ist</h3><ul><li>Schnelles Nachschlagen im Einsatz. Sie ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.</li><li>Laut Begleitheft gelten die aufgeführten Kontraindikationen als absolute Kontraindikationen, solange Notfallsanitäter ohne (tele-)notärztliche Unterstützung tätig werden.</li><li>Vor jeder Gabe: Notarztruf nach lokalem Indikationskatalog, Aufklärung und Einwilligung, 6-R-Regel (Patient, Medikament, Dosierung, Zeitpunkt, Konzentration, Applikationsart), Spritzen beschriften, Doppelkontrolle („read back“).</li></ul></section>';
+    html += '<section class="card do"><h3>Rettungsdienstbereich: ' + esc(regName(region).replace(/ \(.*\)$/, "")) + '</h3><p style="margin:0">Bei jedem Medikament und Notfallbild steht die Mindestqualifikation aus der Kompetenztabelle dieses Bereichs.</p><div class="chips"><button class="chip" data-go="komp">Alle ' + KOMP.length + ' Einträge und Legende</button><button class="chip" data-go="bereich">Bereich wechseln</button></div></section>';
+    html += '<section class="card"><h3>Quellen</h3><ul><li>Gemeinsames Kompendium Rettungsdienst 2026 (Seitenangabe „Kompendium S.“ / „KP“)</li><li>Begleitheft Medikamente 2026/2027 (Seitenangabe „Begleitheft S.“ / „BH“)</li><li>Keine Inhalte aus anderen Quellen oder Allgemeinwissen ergänzt.</li></ul></section>';
+    html += '<section class="card"><h3>Was die App bewusst nicht enthält</h3><ul><li>Die Kompetenztabellen der invasiven Maßnahmen sind enthalten, deren SAA-Texte (Durchführung, Risiken) aber nicht.</li><li>Die Flussdiagramme als Grafik. Sie sind als Listen übertragen; Verzweigungen im Original prüfen.</li><li>Die SAA zu invasiven Maßnahmen (i.v./i.o.-Zugang, EGA, Defibrillation usw.).</li></ul></section>';
+    html += '<section class="card"><h3>Darstellung</h3><div class="chips"><button class="chip" data-theme-set="">System</button><button class="chip" data-theme-set="light">Hell</button><button class="chip" data-theme-set="dark">Dunkel</button></div></section>';
+    html += "</article>";
+    view.innerHTML = html; bindRows();
+    view.querySelectorAll("[data-theme-set]").forEach(b => b.addEventListener("click", () => { const t = b.dataset.themeSet; t ? document.documentElement.setAttribute("data-theme", t) : document.documentElement.removeAttribute("data-theme"); try { localStorage.setItem("rdtheme", t); } catch (e) {} }));
+  }
+  try { const t = localStorage.getItem("rdtheme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+
+  render();
+})();
+</script>
