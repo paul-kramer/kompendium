@@ -332,7 +332,7 @@ const NOTFAELLE = [
 { id: "immo", cat: "Trauma / MANV", title: "Immo-Ampel (Wirbelsäulenimmobilisation)", src: "KP S. 162", search: "immobilisation hws wirbelsäule immo ampel 4s",
   note: NF_NOTE, flags: [],
   sections: [
-    { h: "Abfragen (Zuordnung der Ja/Nein-Pfade im Original prüfen)", items: ["isoliertes penetrierendes Trauma des Rumpfes?", "offensichtlich schwer verletzt?", "SHT mit GCS ≤ 12?", "peripheres neurologisches Defizit?", "4S-Regel (je 1 Punkt): Sturz > 3 m; schwere Rumpfverletzung; supraklavikuläre Verletzung; Seniorität > 65 J. – ≥ 1 Punkt?", "behandlungsbedürftiger Wirbelsäulenschmerz NRS ≥ 5?"] },
+    { h: "Abfragen", items: ["isoliertes penetrierendes Trauma des Rumpfes?", "offensichtlich schwer verletzt?", "SHT mit GCS ≤ 12?", "peripheres neurologisches Defizit?", "4S-Regel (je 1 Punkt): Sturz > 3 m; schwere Rumpfverletzung; supraklavikuläre Verletzung; Seniorität > 65 J. – ≥ 1 Punkt?", "behandlungsbedürftiger Wirbelsäulenschmerz NRS ≥ 5?"] },
     { h: "Ergebnisse", items: ["vollständige Immobilisation erforderlich", "Bewegungseinschränkung erwägen", "keine Immobilisation erforderlich"] } ] },
 { id: "thermisch", cat: "Trauma / MANV", title: "Thermische Verletzungen", src: "KP S. 163–164", search: "verbrennung verbrühung inhalationstrauma",
   note: NF_NOTE,

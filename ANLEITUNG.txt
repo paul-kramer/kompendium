@@ -1,0 +1,10 @@
+Gemeinsames Kompendium Rettungsdienst (inoffizielle Nachschlage-App) – Offline-Web-App für iPhone / iPad
+
+1. Diesen Ordner (alle Dateien) auf einen Webspace mit HTTPS hochladen,
+   z. B. kostenlos per Drag-and-drop auf https://app.netlify.com/drop
+2. Die Adresse, die du bekommst, auf dem iPhone/iPad in Safari öffnen.
+3. Teilen-Symbol ➜ „Zum Home-Bildschirm“.
+4. Die App einmal mit Internet öffnen und kurz durchtippen. Danach startet sie auch ohne Netz.
+
+Updates: neue Dateien hochladen, App einmal mit Internet öffnen und neu starten.
+Hinweis: Wer die Adresse kennt, kann die Seite öffnen. Vorher klären, ob die Inhalte veröffentlicht werden dürfen.

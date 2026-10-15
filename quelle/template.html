@@ -140,6 +140,14 @@ h2.sec { font: 700 1.05rem/1.2 var(--f-display); text-transform: uppercase; lett
 .allreg { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; margin-top: 4px; }
 .allreg .on { font-weight: 700; color: var(--ok); }
 .flag.excl { background: var(--block-bg, var(--warn-bg)); border-left-color: var(--block); }
+.card ul li.br { list-style: none; margin-left: -1.15em; display: grid; gap: 4px; padding: 8px 10px; border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 8px; background: var(--bg); }
+.br .gl { font: 700 .75rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.br .c { font-weight: 700; }
+.br .c.sub { margin-top: 4px; padding-top: 6px; border-top: 1px dashed var(--line); }
+.br .a { display: flex; gap: 8px; align-items: baseline; padding-left: 4px; }
+.br .a::before { content: "➜"; color: var(--accent); font-weight: 700; flex: none; }
+.br .ja { font: 700 .72rem/1 var(--f-num); color: var(--ok); background: var(--ok-bg); border-radius: 4px; padding: 2px 5px; flex: none; }
+.br .lk { font-size: .8rem; padding: 2px 9px; margin-left: 4px; }
 table.age { border-collapse: collapse; width: 100%; font-size: .92rem; }
 table.age td { border-top: 1px solid var(--line); padding: 5px 4px; vertical-align: top; }
 table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
@@ -152,6 +160,54 @@ table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
 .tab[aria-current="page"] { color: var(--accent); border-top-color: var(--accent); }
 .empty { color: var(--muted); padding: 20px 4px; text-align: center; }
 @media (prefers-reduced-motion: no-preference) { .row, .chip { transition: background .12s, border-color .12s; } }
+
+/* Ablauf / Flussdiagramm */
+.card.flow { border-left: 6px solid var(--accent); }
+.card.flow h3 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.fsrc { font: 400 .75rem/1 var(--f-num); text-transform: none; letter-spacing: 0; color: var(--muted); }
+.flegend { display: flex; flex-wrap: wrap; gap: 6px; font-size: .75rem; }
+.lg { border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; }
+.lg.med { background: var(--accent-soft); border-color: var(--accent); }
+.lg.opt { border-style: dashed; border-color: var(--ink); }
+.lg.fe { background: var(--bar); color: var(--bar-ink); border-color: var(--bar); }
+.fh { font: 700 .9rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top: 6px; }
+.fl { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; min-width: 0; }
+.fl > li { position: relative; padding-left: 18px; padding-bottom: 10px; min-width: 0; }
+.fl > li::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; border-left: 2px solid var(--line); }
+.fl > li::after { content: ""; position: absolute; left: 2px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--surface); border: 2px solid var(--muted); }
+.fl > li:last-child::before { bottom: auto; height: 14px; }
+.fl > li > span:first-child { display: block; }
+.fs > span:first-child, .fst > span, .fe > span:first-child, .fg > span:first-child { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); overflow-wrap: anywhere; }
+.fst > span { font-weight: 700; border-radius: 999px; border-color: var(--warn); background: var(--warn-bg); }
+.fs.med > span:first-child { background: var(--accent-soft); border: 2px solid var(--accent); font-weight: 700; }
+.fs.opt > span:first-child { border: 2px dashed var(--ink); }
+.fs.info > span:first-child { background: transparent; border-style: dotted; color: var(--muted); font-size: .9rem; }
+.fe > span:first-child { background: var(--bar); color: var(--bar-ink); border-color: var(--bar); font-weight: 700; }
+.fl > li.fe::after { background: var(--ink); border-color: var(--ink); border-radius: 2px; }
+.fg > span:first-child { border-style: dashed; color: var(--accent); font-weight: 700; }
+.fg > span:first-child::before { content: "↩ "; }
+.fln { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.fc { color: var(--muted); font-size: .8rem; }
+.fl > li.fc::after { display: none; }
+.fq > .qq { display: flex; gap: 8px; align-items: flex-start; padding: 7px 10px; border-radius: 8px; border: 2px solid var(--warn); background: var(--warn-bg); font-weight: 700; overflow-wrap: anywhere; }
+.fl > li.fq::after { transform: rotate(45deg); border-radius: 1px; border-color: var(--warn); background: var(--warn-bg); }
+.qm { flex: none; width: 1.3em; height: 1.3em; display: grid; place-items: center; border-radius: 50%; background: var(--warn); color: var(--surface); font: 700 .8rem/1 var(--f-num); margin-top: 1px; }
+.bs { display: grid; gap: 6px; margin-top: 6px; min-width: 0; }
+.bx { border: 1px solid var(--line); border-left: 4px solid var(--muted); border-radius: 8px; padding: 6px 8px 0 6px; background: var(--surface); min-width: 0; }
+.bx.ja { border-left-color: var(--ok); }
+.bx.nein { border-left-color: var(--block); }
+.bx.x { border-left-color: var(--accent); }
+.bx.empty { display: flex; gap: 8px; align-items: center; padding-bottom: 6px; }
+.bx summary { cursor: pointer; padding-bottom: 6px; list-style: none; display: flex; align-items: center; gap: 6px; }
+.bx summary::-webkit-details-marker { display: none; }
+.bx summary::after { content: "▾"; color: var(--muted); margin-left: auto; }
+.bx:not([open]) summary::after { content: "▸"; }
+.bl { font: 700 .75rem/1 var(--f-num); border-radius: 4px; padding: 3px 7px; background: var(--bg); color: var(--ink); text-transform: uppercase; }
+.bl.ja { color: var(--ok); background: var(--ok-bg); }
+.bl.nein { color: var(--block); background: var(--block-bg); }
+.bl.x { color: var(--accent); background: var(--accent-soft); text-transform: none; }
+.wt { color: var(--muted); font-size: .85rem; }
+.fnotes { margin: 4px 0 0; padding-left: 1.15em; color: var(--muted); font-size: .88rem; display: grid; gap: 3px; }
 </style>
 
 <header class="top">
@@ -413,12 +469,90 @@ table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
     if (query) { const meds = MEDS.filter(m => matches(medText(m), query)); if (meds.length) html += '<h2 class="sec">Passende Medikamente</h2><div class="list">' + meds.map(medRow).join("") + "</div>"; }
     view.innerHTML = html; bindRows();
   }
+  // ── Abzweigungen in Notfallbildern: „Bedingung ➜ Maßnahme“ als Wenn-dann-Block ──
+  const NF_LINKS = [["sepsis","sepsis"],["schmerz","schmerz"],["dehydratation","dehydratation"],["bronchialobstruktion","bronch"],["bradykardie","brady"],["brady-","brady"],["tachykardie","tachy"],["atemwegsmanagement","atemweg"],["anaphylaxie","anaphylaxie"],["fremdkörper","fremdkoerper"],["blutung","blutung"],["schlaganfall","stroke"],["neugeborene","nls"],["post-rosc","postrosc"],["lungenödem","lungenoedem"],["lungenembolie","lae"],["lungenarterienembolie","lae"],["krampfanfall","krampf_erw"],["co-intoxikation","co"],["intoxikation","intox"],["hypoglykämie","hypoglyk"],["hyperglykämie","hyperglyk"],["dyspnoe","dyspnoe"],["d-problem","dtrauma"],["b-problem","btrauma"],["acs","acs"],["brustschmerz","acs"],["polytrauma","trauma"],["als","als"],["pls","pls"]];
+  function nfLinks(text, selfId) {
+    const m = text.match(/BPR ([^;]*)/); if (!m) return "";
+    const s = m[1].toLowerCase(), ids = [];
+    NF_LINKS.forEach(([k, id]) => { const re = new RegExp("(^|[^a-zäöü])" + k.replace(/[-/]/g, "\\$&") + "([^a-zäöü]|$)"); if (re.test(s) && !ids.includes(id) && id !== selfId && nfById[id]) ids.push(id); });
+    if (ids.includes("co")) ids.splice(ids.indexOf("intox"), ids.includes("intox") ? 1 : 0);
+    return ids.map(id => '<button class="chip lk" data-go="n-' + id + '">' + esc(nfById[id].title) + "</button>").join("");
+  }
+  function arrowSplit(s) {
+    const parts = []; let depth = 0, cur = "";
+    for (const ch of s) { if (ch === "(") depth++; if (ch === ")") depth = Math.max(0, depth - 1); if (ch === "➜" && depth === 0) { parts.push(cur.trim()); cur = ""; } else cur += ch; }
+    parts.push(cur.trim()); return parts.filter(Boolean);
+  }
+  function branchRow(seg, first, selfId) {
+    const p = arrowSplit(seg); if (p.length < 2) return '<div class="c' + (first ? "" : " sub") + '">' + esc(seg) + "</div>";
+    const q = /\?$/.test(p[0]);
+    return '<div class="c' + (first ? "" : " sub") + '">' + esc(p[0]) + "</div>" + p.slice(1).map((a, k) => '<div class="a">' + (q && k === 0 ? '<span class="ja">ja</span>' : "") + "<span>" + esc(a) + nfLinks(a, selfId) + "</span></div>").join("");
+  }
+  function nfItem(i, selfId) {
+    if (arrowSplit(i).length < 2) return "<li>" + esc(i) + "</li>";
+    let segs = i.split(/;\s+/);
+    if (segs.filter(s => arrowSplit(s).length > 1).length < 2) segs = [i];
+    let label = "";
+    const lm = segs[0].match(/^([^:➜()]{2,28}):\s+(.*)$/);
+    if (segs.length > 1 && lm && arrowSplit(lm[2]).length > 1) { label = lm[1]; segs[0] = lm[2]; }
+    return '<li class="br">' + (label ? '<div class="gl">' + esc(label) + "</div>" : "") + segs.map((s, k) => branchRow(s, k === 0, selfId)).join("") + "</li>";
+  }
+  // ── Flussdiagramme: Ablauf mit allen Verzweigungen (aus FLOWS, KP-Seiten) ──
+  function flowLinks(text, selfId) {
+    if (!/BPR|SAA|Algorithmus|Leitsymptom|siehe|weiter (mit|nach)/i.test(text)) return "";
+    const s = text.toLowerCase(), ids = [];
+    NF_LINKS.forEach(([k, id]) => { const re = new RegExp("(^|[^a-zäöü])" + k.replace(/[-/]/g, "\\$&") + "([^a-zäöü]|$)"); if (re.test(s) && !ids.includes(id) && id !== selfId && nfById[id]) ids.push(id); });
+    if (ids.includes("co") && ids.includes("intox")) ids.splice(ids.indexOf("intox"), 1);
+    return ids.length ? '<span class="fln">' + ids.map(id => '<button class="chip lk" data-go="n-' + id + '">' + esc(nfById[id].title) + "</button>").join("") + "</span>" : "";
+  }
+  function brClass(l) { const x = l.trim().toLowerCase(); return x === "ja" ? "ja" : x === "nein" ? "nein" : "x"; }
+  function flowEnds(list) {
+    const l = list && list[list.length - 1]; if (!l) return false;
+    if (l.end != null || l.go != null) return true;
+    return l.q != null && (l.b || []).length > 0 && l.b.every(b => flowEnds(b.n));
+  }
+  function flowNodes(list, selfId) {
+    return list.map(nd => {
+      if (nd.q != null) {
+        return '<li class="fq">' + (nd.q ? '<div class="qq"><span class="qm" aria-hidden="true">?</span><span>' + esc(nd.q) + "</span></div>" : "") + '<div class="bs">' + (nd.b || []).map(b => {
+          const lab = '<span class="bl ' + brClass(b.l) + '">' + (b.l.trim() ? esc(b.l) : "➜") + "</span>";
+          if (!b.n || !b.n.length) return '<div class="bx ' + brClass(b.l) + ' empty">' + lab + '<span class="wt">weiter im Ablauf ↓</span></div>';
+          const ends = flowEnds(b.n);
+          return '<details class="bx ' + brClass(b.l) + '" open><summary>' + lab + "</summary><ol class=\"fl\">" + flowNodes(b.n, selfId) + (ends ? "" : '<li class="fc">weiter im Ablauf ↓</li>') + "</ol></details>";
+        }).join("") + "</div></li>";
+      }
+      if (nd.end != null) return '<li class="fe"><span>' + esc(nd.end) + "</span>" + flowLinks(nd.end, selfId) + "</li>";
+      if (nd.go != null) return '<li class="fg"><span>' + esc(nd.go) + "</span>" + flowLinks(nd.go, selfId) + "</li>";
+      return '<li class="fs' + (nd.k ? " " + nd.k : "") + '"><span>' + esc(nd.s) + "</span>" + flowLinks(nd.s, selfId) + "</li>";
+    }).join("");
+  }
+  function flowCard(n) {
+    const pages = (typeof FLOWS !== "undefined" && FLOWS[n.id]) || [];
+    if (!pages.length) return "";
+    let html = '<section class="card flow"><h3>Ablauf <span class="fsrc">Kompendium S. ' + pages.map(p => p.page).join(", ") + "</span></h3>";
+    html += '<div class="flegend"><span class="bl ja">ja</span><span class="bl nein">nein</span><span class="lg med">Medikament</span><span class="lg opt">optional</span><span class="lg fe">Ende</span></div>';
+    pages.forEach(p => {
+      p.flows.forEach(f => {
+        if (pages.length > 1 || p.flows.length > 1) html += '<div class="fh">' + esc(f.h || p.title) + "</div>";
+        html += '<ol class="fl root">' + (f.start ? '<li class="fst"><span>' + esc(f.start) + "</span></li>" : "") + flowNodes(f.steps || [], n.id) + "</ol>";
+      });
+      if (p.notes && p.notes.length) html += '<ul class="fnotes">' + p.notes.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>";
+    });
+    return html + "</section>";
+  }
+  function nfCard(title, items, selfId) {
+    if (!items || !items.length) return "";
+    return '<section class="card"><h3>' + esc(title) + "</h3><ul>" + items.map(i => nfItem(i, selfId)).join("") + "</ul></section>";
+  }
   function renderNf(n) {
     let html = '<article class="detail"><div class="dh"><h2>' + esc(n.title) + '</h2><div class="meta">' + esc(n.cat) + '</div><div class="src">' + esc(n.src.replace("KP", "Kompendium").replace("BH", "Begleitheft")) + "</div></div>";
     html += exclFlags(n.id);
     (n.flags || []).forEach(f => html += '<div class="flag"><b>Achtung Quelle:</b> ' + esc(f) + "</div>");
-    if (n.note) html += '<div class="hint">' + esc(n.note) + "</div>";
-    html += n.sections.map(s => card(s.h, s.items)).join("");
+    const fc = flowCard(n);
+    if (n.note && !fc) html += '<div class="hint">' + esc(n.note) + "</div>";
+    html += fc;
+    if (fc) html += '<h2 class="sec">Details</h2>';
+    html += n.sections.map(s => nfCard(s.h, s.items, n.id)).join("");
     html += kompCard(KOMP.filter(d => d.nf.includes(n.id)));
     if (n.meds && n.meds.length) html += '<section class="card"><h3>Medikamente</h3><div class="chips">' + n.meds.map(id => '<button class="chip" data-go="m-' + id + '">' + esc(medById[id].name) + "</button>").join("") + "</div></section>";
     html += DISCLAIMER + "</article>";
@@ -431,7 +565,7 @@ table.age td:last-child { font-family: var(--f-num); font-weight: 600; }
     html += '<section class="card ki"><h3>Wofür diese App ist</h3><ul><li>Inoffizielle Nachschlage-App, nicht herausgegeben von den Ärztlichen Leitungen Rettungsdienst. Inhalte aus dem Gemeinsamen Kompendium Rettungsdienst 2026 und dem Begleitheft Medikamente 2026/2027.</li><li>Schnelles Nachschlagen im Einsatz. Sie ersetzt nicht die lokal gültigen SAA / BPR, die Freigabe durch die Ärztliche Leitung Rettungsdienst oder die (tele-)notärztliche Anordnung.</li><li>Laut Begleitheft gelten die aufgeführten Kontraindikationen als absolute Kontraindikationen, solange Notfallsanitäter ohne (tele-)notärztliche Unterstützung tätig werden.</li><li>Vor jeder Gabe: Notarztruf nach lokalem Indikationskatalog, Aufklärung und Einwilligung, 6-R-Regel (Patient, Medikament, Dosierung, Zeitpunkt, Konzentration, Applikationsart), Spritzen beschriften, Doppelkontrolle („read back“).</li></ul></section>';
     html += '<section class="card do"><h3>Rettungsdienstbereich: ' + esc(regName(region).replace(/ \(.*\)$/, "")) + '</h3><p style="margin:0">Bei jedem Medikament und Notfallbild steht die Mindestqualifikation aus der Kompetenztabelle dieses Bereichs.</p><div class="chips"><button class="chip" data-go="komp">Alle ' + KOMP.length + ' Einträge und Legende</button><button class="chip" data-go="bereich">Bereich wechseln</button></div></section>';
     html += '<section class="card"><h3>Quellen</h3><ul><li>Gemeinsames Kompendium Rettungsdienst 2026 (Seitenangabe „Kompendium S.“ / „KP“)</li><li>Begleitheft Medikamente 2026/2027 (Seitenangabe „Begleitheft S.“ / „BH“)</li><li>Keine Inhalte aus anderen Quellen oder Allgemeinwissen ergänzt.</li></ul></section>';
-    html += '<section class="card"><h3>Was die App bewusst nicht enthält</h3><ul><li>Die Kompetenztabellen der invasiven Maßnahmen sind enthalten, deren SAA-Texte (Durchführung, Risiken) aber nicht.</li><li>Die Flussdiagramme als Grafik. Sie sind als Listen übertragen; Verzweigungen im Original prüfen.</li><li>Die SAA zu invasiven Maßnahmen (i.v./i.o.-Zugang, EGA, Defibrillation usw.).</li></ul></section>';
+    html += '<section class="card"><h3>Was die App bewusst nicht enthält</h3><ul><li>Die Kompetenztabellen der invasiven Maßnahmen sind enthalten, deren SAA-Texte (Durchführung, Risiken) aber nicht.</li><li>Die Flussdiagramme als Originalgrafik. Sie sind als „Ablauf“ mit allen Ja/Nein-Zweigen nachgebaut; bei Unklarheit gilt das Original.</li><li>Die SAA zu invasiven Maßnahmen (i.v./i.o.-Zugang, EGA, Defibrillation usw.).</li></ul></section>';
     html += '<section class="card"><h3>Darstellung</h3><div class="chips"><button class="chip" data-theme-set="">System</button><button class="chip" data-theme-set="light">Hell</button><button class="chip" data-theme-set="dark">Dunkel</button></div></section>';
     html += "</article>";
     view.innerHTML = html; bindRows();
